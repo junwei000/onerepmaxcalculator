@@ -1,24 +1,51 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import TheHeader from '../components/TheHeader.vue'
+import TheFooter from '../components/TheFooter.vue'
 
 const weight = ref<number | null>(null)
 const reps = ref<number | null>(null)
 const oneRepMax = ref<number | null>(null)
+const liftType = ref('Lifts')
+const unit = ref('KG')
+
+const liftOptions = ['Lifts', 'Deadlift', 'Squat', 'Bench Press']
+const unitOptions = ['KG', 'lb']
+
 // Percentages to display
 const percentages = [100, 95, 90, 85, 80, 75, 70, 65, 60, 55, 50]
 
-// Brzycki Formula
+// Formula Logic
 const calculate1RM = () => {
   if (weight.value && reps.value) {
     if (reps.value === 1) {
       oneRepMax.value = weight.value
     } else {
-      // Formula: Weight / (1.0278 - (0.0278 * Reps))
-      oneRepMax.value = weight.value / (1.0278 - (0.0278 * reps.value))
+      // Choose formula based on lift type
+      if (liftType.value === 'Deadlift') {
+           // Lombardi Formula: Weight * Reps^0.10
+           oneRepMax.value = weight.value * Math.pow(reps.value, 0.10)
+      } else if (liftType.value === 'Squat') {
+          // Epley Formula: Weight * (1 + (0.0333 * Reps))
+          oneRepMax.value = weight.value * (1 + (0.0333 * reps.value))
+      } else {
+          // Brzycki Formula (Default/Bench): Weight / (1.0278 - (0.0278 * Reps))
+          oneRepMax.value = weight.value / (1.0278 - (0.0278 * reps.value))
+      }
     }
   }
 }
+
+const formulaName = computed(() => {
+    if (liftType.value === 'Deadlift') {
+        return 'LOMBARDI'
+    }
+    if (liftType.value === 'Squat') {
+        return 'EPLEY'
+    }
+    return 'BRZYCKI'
+})
+
 
 const breakdown = computed(() => {
   if (!oneRepMax.value) return []
@@ -78,11 +105,30 @@ const faqs = [
           <div class="p-8 border-2 border-black bg-gray-50 shadow-none md:shadow-2xl">
             <div class="w-full space-y-10">
               <div class="space-y-2 text-center">
-                <h2 class="text-4xl font-black uppercase leading-tight">Calculate Your Bench Max</h2>
+                <h2 class="text-4xl font-black uppercase leading-tight">Calculate Your {{ liftType === 'Lifts' ? 'Limits' : liftType }}</h2>
                 <p class="text-gray-600 font-medium">Use the Brzycki formula to estimate your max strength.</p>
               </div>
 
               <div class="max-w-md mx-auto space-y-6">
+                <!-- Lift Type Selector -->
+                <div class="space-y-2">
+                    <label for="liftType" class="block font-bold uppercase text-sm tracking-widest">Lift Type</label>
+                    <div class="relative">
+                        <select 
+                            id="liftType" 
+                            v-model="liftType"
+                            class="block w-full bg-white border-2 border-black p-4 text-2xl font-bold focus:outline-none focus:ring-4 focus:ring-black/20 transition-all appearance-none"
+                        >
+                            <option v-for="option in liftOptions" :key="option" :value="option">{{ option }}</option>
+                        </select>
+                        <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="space-y-2">
                     <label for="weight" class="block font-bold uppercase text-sm tracking-widest">Lift Weight</label>
                     <div class="relative">
@@ -90,11 +136,18 @@ const faqs = [
                             type="number" 
                             id="weight" 
                             v-model.number="weight" 
-                            class="block w-full bg-white border-2 border-black p-4 pr-24 text-2xl font-bold focus:outline-none focus:ring-4 focus:ring-black/20 transition-all placeholder:text-gray-300"
+                            class="block w-full bg-white border-2 border-black p-4 pr-32 text-2xl font-bold focus:outline-none focus:ring-4 focus:ring-black/20 transition-all placeholder:text-gray-300"
                             placeholder="0"
                             @keyup.enter="calculate1RM"
                         />
-                        <span class="absolute right-12 top-1/2 -translate-y-1/2 font-black text-gray-400 pointer-events-none">KG</span>
+                        <div class="absolute right-2 top-1/2 -translate-y-1/2">
+                            <select 
+                                v-model="unit" 
+                                class="bg-gray-100 font-black text-gray-500 hover:text-black border-none rounded-sm py-1 pl-2 pr-1 text-sm uppercase focus:ring-0 cursor-pointer"
+                            >
+                                <option v-for="opt in unitOptions" :key="opt" :value="opt">{{ opt }}</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
 
@@ -140,12 +193,12 @@ const faqs = [
                     <div>
                         <h3 class="font-bold uppercase text-black tracking-widest mb-2">Estimated One Rep Max</h3>
                         <div class="text-8xl md:text-9xl font-black leading-none tracking-tighter text-black">
-                            {{ Math.round(oneRepMax) }}<span class="text-4xl text-black align-top ml-2">KG</span>
+                            {{ Math.round(oneRepMax) }}<span class="text-4xl text-black align-top ml-2">{{ unit }}</span>
                         </div>
                     </div>
                     <div class="text-right hidden sm:block">
                          <div class="text-sm font-bold uppercase text-gray-400">Analysis</div>
-                         <div class="font-mono text-xs text-gray-500 mt-1">BASED ON BRZYCKI</div>
+                         <div class="font-mono text-xs text-gray-500 mt-1">BASED ON {{ formulaName }}</div>
                     </div>
                 </div>
 
@@ -155,7 +208,7 @@ const faqs = [
                         <thead class="bg-black text-white">
                             <tr>
                                 <th class="p-4 font-bold uppercase tracking-widest text-sm w-1/3">Percentage</th>
-                                <th class="p-4 font-bold uppercase tracking-widest text-sm w-1/3">Weight (KG)</th>
+                                <th class="p-4 font-bold uppercase tracking-widest text-sm w-1/3">Weight ({{ unit }})</th>
                                 <th class="p-4 font-bold uppercase tracking-widest text-sm w-1/3 text-right">Est. Reps</th>
                             </tr>
                         </thead>
@@ -230,44 +283,9 @@ const faqs = [
       </div>
     </main>
     
-    <!-- Footer -->
-    <footer class="bg-black text-white py-12 px-6">
-        <div class="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="text-center md:text-left">
-                <div class="font-black text-2xl uppercase tracking-tighter mb-2">One Rep Max</div>
-                <p class="text-gray-400 text-sm">Train smarter, not just harder.</p>
-            </div>
-            
-            <nav class="flex flex-wrap gap-6 justify-center">
-                <router-link to="/" class="hover:text-gray-300 transition-colors uppercase font-bold text-sm tracking-widest">Home</router-link>
-                <router-link to="/about" class="hover:text-gray-300 transition-colors uppercase font-bold text-sm tracking-widest">About</router-link>
-                <router-link to="/terms" class="hover:text-gray-300 transition-colors uppercase font-bold text-sm tracking-widest">Terms</router-link>
-                <router-link to="/privacy" class="hover:text-gray-300 transition-colors uppercase font-bold text-sm tracking-widest">Privacy</router-link>
-            </nav>
-        </div>
-        <div class="max-w-4xl mx-auto mt-12 pt-8 border-t border-gray-800 text-center text-gray-500 text-xs">
-            © {{ new Date().getFullYear() }} One Rep Max Calculator. All rights reserved.
-        </div>
-    </footer>
+    <TheFooter />
   </div>
 </template>
-
-<style scoped>
-/* Custom scrollbar for webkit */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: white;
-  border-left: 1px solid #eee;
-}
-::-webkit-scrollbar-thumb {
-  background: black;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #333;
-}
-</style>
 
 <style scoped>
 /* Custom scrollbar for webkit */

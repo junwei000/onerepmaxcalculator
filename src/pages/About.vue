@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import TheHeader from '../components/TheHeader.vue'
+import TheFooter from '../components/TheFooter.vue'
 </script>
 
 <template>
@@ -13,5 +14,6 @@ import TheHeader from '../components/TheHeader.vue'
             <p class="mb-4">This project is open source and respects your privacy.</p>
         </div>
       </main>
+      <TheFooter />
   </div>
 </template>

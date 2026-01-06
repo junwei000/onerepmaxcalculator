@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import TheHeader from '../components/TheHeader.vue'
+import TheFooter from '../components/TheFooter.vue'
 </script>
 
 <template>
@@ -16,5 +17,6 @@ import TheHeader from '../components/TheHeader.vue'
             <p class="text-sm text-gray-500 mt-8">Last updated: {{ new Date().toLocaleDateString() }}</p>
         </div>
       </main>
+      <TheFooter />
   </div>
 </template>
