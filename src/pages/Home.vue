@@ -69,9 +69,7 @@ const faqs = [
     <!-- Header -->
     <header class="flex-none border-b-2 border-black px-6 py-4 flex items-center justify-between bg-white z-20 sticky top-0">
       <div class="flex items-center gap-3">
-          <div class="w-10 h-10 bg-black text-white flex items-center justify-center font-black text-lg">
-              1RM
-          </div>
+          <img src="/android-chrome-512x512.png" alt="1RM Logo" class="w-10 h-10 object-contain" />
           <div class="flex flex-col">
               <h1 class="text-2xl font-black uppercase tracking-tighter leading-none">One Rep Max</h1>
               <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest leading-none mt-1">Estimate your strength limit safely</span>

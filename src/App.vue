@@ -2,7 +2,7 @@
 import { useHead } from '@unhead/vue'
 
 useHead({
-  title: 'One Rep Max Calculator',
+  title: 'One Rep Max Calculator | Push Your Limits Safely',
   meta: [
     {
       name: 'description',
