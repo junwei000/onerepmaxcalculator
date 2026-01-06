@@ -143,6 +143,7 @@ const faqs = [
                         <div class="absolute right-2 top-1/2 -translate-y-1/2">
                             <select 
                                 v-model="unit" 
+                                aria-label="Weight Unit"
                                 class="bg-gray-100 font-black text-gray-500 hover:text-black border-none rounded-sm py-1 pl-2 pr-1 text-sm uppercase focus:ring-0 cursor-pointer"
                             >
                                 <option v-for="opt in unitOptions" :key="opt" :value="opt">{{ opt }}</option>
@@ -275,7 +276,7 @@ const faqs = [
             <h2 class="text-3xl font-black uppercase mb-10 text-center">Frequently Asked Questions</h2>
             <div class="space-y-6 max-w-3xl mx-auto">
                 <div v-for="(faq, index) in faqs" :key="index" class="border-2 border-black p-6 rounded-lg bg-gray-50">
-                    <h4 class="font-bold text-lg mb-2">{{ faq.question }}</h4>
+                    <h3 class="font-bold text-lg mb-2">{{ faq.question }}</h3>
                     <p class="text-gray-600">{{ faq.answer }}</p>
                 </div>
             </div>
