@@ -9,19 +9,14 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 
 import App from './App.vue'
-import Home from './pages/Home.vue'
-import Terms from './pages/Terms.vue'
-import Privacy from './pages/Privacy.vue'
-import About from './pages/About.vue'
-
 /* add icons to the library */
 library.add(faUserSecret)
 
 const routes = [
-    { path: '/', component: Home },
-    { path: '/terms', component: Terms },
-    { path: '/privacy', component: Privacy },
-    { path: '/about', component: About },
+    { path: '/', component: () => import('./pages/Home.vue') },
+    { path: '/terms', component: () => import('./pages/Terms.vue') },
+    { path: '/privacy', component: () => import('./pages/Privacy.vue') },
+    { path: '/about', component: () => import('./pages/About.vue') },
 ]
 
 export const createApp = ViteSSG(

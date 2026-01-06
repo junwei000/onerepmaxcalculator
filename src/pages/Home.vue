@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import TheHeader from '../components/TheHeader.vue'
 
 const weight = ref<number | null>(null)
 const reps = ref<number | null>(null)
 const oneRepMax = ref<number | null>(null)
-
 // Percentages to display
 const percentages = [100, 95, 90, 85, 80, 75, 70, 65, 60, 55, 50]
 
@@ -66,19 +66,7 @@ const faqs = [
 
 <template>
   <div class="min-h-screen flex flex-col bg-white text-black font-sans">
-    <!-- Header -->
-    <header class="flex-none border-b-2 border-black px-6 py-4 flex items-center justify-between bg-white z-20 sticky top-0">
-      <div class="flex items-center gap-3">
-          <img src="/android-chrome-512x512.png" alt="1RM Logo" class="w-10 h-10 object-contain" />
-          <div class="flex flex-col">
-              <h1 class="text-2xl font-black uppercase tracking-tighter leading-none">One Rep Max</h1>
-              <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest leading-none mt-1">Estimate your strength limit safely</span>
-          </div>
-      </div>
-      <div>
-          <span class="font-mono text-sm border border-black px-2 py-1 rounded-sm">V1.0</span>
-      </div>
-    </header>
+    <TheHeader />
 
     <!-- Main Content Area -->
     <main class="flex-1 flex flex-col items-center">
