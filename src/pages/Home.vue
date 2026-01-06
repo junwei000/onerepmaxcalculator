@@ -72,7 +72,10 @@ const faqs = [
           <div class="w-10 h-10 bg-black text-white flex items-center justify-center font-black text-lg">
               1RM
           </div>
-          <h1 class="text-2xl font-black uppercase tracking-tighter">One Rep Max</h1>
+          <div class="flex flex-col">
+              <h1 class="text-2xl font-black uppercase tracking-tighter leading-none">One Rep Max</h1>
+              <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest leading-none mt-1">Estimate your strength limit safely</span>
+          </div>
       </div>
       <div>
           <span class="font-mono text-sm border border-black px-2 py-1 rounded-sm">V1.0</span>
@@ -80,19 +83,20 @@ const faqs = [
     </header>
 
     <!-- Main Content Area -->
-    <main class="flex-1 flex flex-col">
+    <main class="flex-1 flex flex-col items-center">
       
-      <!-- Calculator Section (Split Layout) -->
-      <div class="flex flex-col md:flex-row border-b-2 border-black">
-          <!-- Inputs -->
-          <div class="w-full md:w-1/2 lg:w-4/12 flex flex-col justify-center p-8 border-b-2 md:border-b-0 md:border-r-2 border-black bg-gray-50">
-            <div class="max-w-md mx-auto w-full space-y-10">
-              <div class="space-y-2">
-                <h2 class="text-4xl font-black uppercase leading-tight">Calculate Your Limits</h2>
+      <!-- Container for both cards -->
+      <div class="w-full max-w-2xl flex flex-col gap-8 md:my-10 px-4 md:px-0">
+          
+          <!-- Calculator Section -->
+          <div class="p-8 border-2 border-black bg-gray-50 shadow-none md:shadow-2xl">
+            <div class="w-full space-y-10">
+              <div class="space-y-2 text-center">
+                <h2 class="text-4xl font-black uppercase leading-tight">Calculate Your Bench Max</h2>
                 <p class="text-gray-600 font-medium">Use the Brzycki formula to estimate your max strength.</p>
               </div>
 
-              <div class="space-y-6">
+              <div class="max-w-md mx-auto space-y-6">
                 <div class="space-y-2">
                     <label for="weight" class="block font-bold uppercase text-sm tracking-widest">Lift Weight</label>
                     <div class="relative">
@@ -100,11 +104,11 @@ const faqs = [
                             type="number" 
                             id="weight" 
                             v-model.number="weight" 
-                            class="block w-full bg-white border-2 border-black p-4 text-2xl font-bold focus:outline-none focus:ring-4 focus:ring-black/20 transition-all placeholder:text-gray-300"
+                            class="block w-full bg-white border-2 border-black p-4 pr-24 text-2xl font-bold focus:outline-none focus:ring-4 focus:ring-black/20 transition-all placeholder:text-gray-300"
                             placeholder="0"
                             @keyup.enter="calculate1RM"
                         />
-                        <span class="absolute right-4 top-1/2 -translate-y-1/2 font-black text-gray-400">KG</span>
+                        <span class="absolute right-12 top-1/2 -translate-y-1/2 font-black text-gray-400 pointer-events-none">KG</span>
                     </div>
                 </div>
 
@@ -130,8 +134,8 @@ const faqs = [
             </div>
           </div>
 
-          <!-- Results -->
-          <div class="w-full md:w-1/2 lg:w-8/12 flex flex-col bg-white min-h-[500px] relative">
+          <!-- Results Section -->
+          <div class="flex flex-col bg-white border-2 border-black shadow-none md:shadow-2xl relative min-h-[300px]">
             <!-- Abstract Pattern Background (SVG) -->
             <div class="absolute inset-0 opacity-5 pointer-events-none">
                 <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
@@ -148,8 +152,8 @@ const faqs = [
                 <!-- 1RM Big Display -->
                 <div class="flex-none p-10 border-b-2 border-black flex items-end justify-between bg-white">
                     <div>
-                        <h3 class="font-bold uppercase text-gray-500 tracking-widest mb-2">Estimated One Rep Max</h3>
-                        <div class="text-8xl md:text-9xl font-black leading-none tracking-tighter">
+                        <h3 class="font-bold uppercase text-black tracking-widest mb-2">Estimated One Rep Max</h3>
+                        <div class="text-8xl md:text-9xl font-black leading-none tracking-tighter text-black">
                             {{ Math.round(oneRepMax) }}<span class="text-4xl text-black align-top ml-2">KG</span>
                         </div>
                     </div>
@@ -185,14 +189,14 @@ const faqs = [
                 <div class="max-w-lg">
                     <div class="text-9xl font-black text-gray-100 mb-6 select-none opacity-50">1RM</div>
                     <h3 class="text-2xl font-bold uppercase mb-2">Ready to Calculate</h3>
-                    <p class="text-gray-500">Enter your lift details on the left to generate your strength report.</p>
+                    <p class="text-gray-500">Enter your lift details above to generate your strength report.</p>
                 </div>
             </div>
           </div>
       </div>
 
       <!-- Info Contents -->
-      <div class="max-w-4xl mx-auto px-6 py-20 bg-white">
+      <div class="max-w-4xl mx-auto px-6 py-20 bg-white w-full">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
             <section>
                 <h3 class="text-2xl font-black uppercase mb-4 border-l-4 border-black pl-4">What is One Rep Max?</h3>
