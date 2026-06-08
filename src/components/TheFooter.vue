@@ -16,6 +16,7 @@
       <div class="max-w-4xl mx-auto mt-8 pt-6 border-t border-gray-800 flex justify-center gap-4 text-sm text-gray-500">
           <span>Friends:</span>
           <a href="https://aniv.ai" target="_blank" rel="noopener noreferrer" class="hover:text-gray-300 transition-colors">Aniv AI</a>
+          <a href="https://subtitleremover.com" target="_blank" rel="noopener noreferrer" class="hover:text-gray-300 transition-colors">Subtitle Remover</a>
       </div>
       <div class="max-w-4xl mx-auto mt-4 pt-4 border-t border-gray-800 text-center text-gray-500 text-xs">
           © {{ new Date().getFullYear() }} One Rep Max Calculator. All rights reserved.
