@@ -5,13 +5,13 @@ import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import Sitemap from 'vite-plugin-sitemap'
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
     vueDevTools(),
     Sitemap({
-      hostname: 'https://onerepmaxcalculator.pro', // Update with actual domain
+      hostname: 'https://onerepmaxcalculator.pro',
+      dynamicRoutes: ['/', '/zh-CN', '/ko', '/ja', '/de', '/fr', '/es', '/terms', '/privacy', '/about'],
     }),
   ],
   resolve: {
