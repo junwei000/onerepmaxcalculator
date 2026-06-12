@@ -368,6 +368,15 @@ const toggleFaq = (index: number) => {
         </div>
       </section>
 
+      <!-- ⑧ FRIEND LINKS -->
+      <section class="pb-12 px-6">
+        <div class="max-w-4xl mx-auto flex flex-wrap items-center justify-center gap-4">
+          <a href="https://findly.tools/aniv-ai?utm_source=aniv-ai" target="_blank" rel="noopener noreferrer">
+            <img src="https://findly.tools/badges/findly-tools-badge-light.svg" alt="Featured on Findly.tools" width="80" height="25" />
+          </a>
+        </div>
+      </section>
+
     </main>
 
     <TheFooter />
